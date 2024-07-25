@@ -428,6 +428,10 @@ again:
 	}
 
 	if !s.packets[s.tail].start {
+		if s.packets[s.tail].packet == nil {
+			return nil, 0
+		}
+
 		diff := s.packets[s.dec(s.head)].packet.SequenceNumber -
 			s.packets[s.tail].packet.SequenceNumber
 		if force || diff > s.maxLate {
